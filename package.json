@@ -1,0 +1,30 @@
+{
+  "name": "exwml",
+  "version": "1.0.0",
+  "description": "express winston!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/waleedsamy/exwml.git"
+  },
+  "keywords": [
+    "express",
+    "wisnton",
+    "log"
+  ],
+  "author": "Waleed Samy <waleedsamy634@gmail.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/waleedsamy/exwml/issues"
+  },
+  "homepage": "https://github.com/waleedsamy/exwml#readme",
+  "dependencies": {
+    "cwd": "^0.10.0",
+    "express-winston": "^2.0.0",
+    "node-uuid": "^1.4.7",
+    "winston": "^2.2.0"
+  }
+}
