@@ -1,5 +1,6 @@
 'use strict';
 var winston = require('winston');
+var rewriters = require('./rewriters');
 var middleware = require('./middleware');
 
 if (!process.env.LOG_FORMAT || process.env.LOG_FORMAT !== 'pretty') {
@@ -18,10 +19,7 @@ var CONSOLE_OPTIONS = {
 var options = {
     transports: [new winston.transports.Console(CONSOLE_OPTIONS)],
     exceptionHandlers: [new winston.transports.Console(CONSOLE_OPTIONS)],
-    rewriters: [function(level, msg, meta) {
-        meta.NODE_ENV = process.env.NODE_ENV
-        return meta;
-    }],
+    rewriters: [rewriters.generalInfo, rewriters.xRequestId]
 };
 
 global.logger = new winston.Logger(options);

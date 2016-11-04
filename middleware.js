@@ -23,7 +23,7 @@ function expressWinston() {
         msg: "HTTP {{req.method}} {{req.baseUrl}}{{req.path}} {{res.statusCode}} {{res.responseTime}}ms",
         statusLevels: true,
         requestWhitelist: ['baseUrl', 'headers', 'method', 'httpVersion', 'query'],
-        responseWhitelist: ['statusCode', '_headers']
+        responseWhitelist: ['statusCode']
     });
 }
 

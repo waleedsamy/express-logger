@@ -1,4 +1,4 @@
-# express-ogger
+# express-logger
 Logger utils and middleware build upon winstonjs
 
 #### configuration
