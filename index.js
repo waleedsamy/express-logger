@@ -19,7 +19,7 @@ var CONSOLE_OPTIONS = {
 var options = {
     transports: [new winston.transports.Console(CONSOLE_OPTIONS)],
     exceptionHandlers: [new winston.transports.Console(CONSOLE_OPTIONS)],
-    rewriters: [rewriters.generalInfo, rewriters.xRequestId]
+    rewriters: process.env.NODE_ENV == "development" ? [rewriters.generalInfo, rewriters.xRequestId] : [rewriters.generalInfo, rewriters.xRequestId, rewriters.redactCriticalData]
 };
 
 global.logger = new winston.Logger(options);

@@ -1,6 +1,8 @@
 var prjctdir = require('cwd')();
 var pkg = require(prjctdir + '/package.json').name.toLowerCase();
 
+var SECERTS = ['password', 'pwd', 'auth', 'authorization', 'cfg'];
+
 module.exports = {
     /* Add NODE_ENV and the main package name */
     generalInfo: function(level, msg, meta) {
@@ -13,6 +15,22 @@ module.exports = {
         if (meta.req && meta.req.headers && meta.req.headers && meta.req.headers['x-request-id']) {
             meta['x-request-id'] = meta.req.headers['x-request-id'];
         }
+        return meta;
+    },
+    /* change any value of meta[key] if this key is on of #SECRET keys */
+    redactCriticalData: function(level, msg, meta) {
+        var _redact = function(obj) {
+            Object.keys(obj).forEach(function(key) {
+                if (meta[key] !== null && typeof obj[key] === 'object') {
+                    return _redact(obj[key]);
+                } else {
+                    if (SECERTS.includes(key.toLowerCase())) {
+                        obj[key] = '<REDACTED>';
+                    }
+                }
+            });
+        };
+        _redact(meta);
         return meta;
     }
 }
