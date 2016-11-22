@@ -1,8 +1,15 @@
 # express-logger
 Logger utils and middleware build upon winstonjs
 
+#### Test
+```bash
+$ npm test
+```
+
 #### configuration
 Logger generate human readable logs if configured with `process.env.LOG_FORMAT=pretty`, otherwise it will generate json.
+
+Winston rewriters will mask any critical information based in log `meta` key name, if key name (_case insensitive_) is one of `['password', 'pwd', 'auth', 'authorization', 'cfg']`, it's value will be replaced by `<REDACTED>`, No masking/redacting to any information if you have `NODE_ENV` set to `development`.
 
 
 #### middleware

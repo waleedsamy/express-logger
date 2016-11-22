@@ -1,5 +1,5 @@
 var winston = require('winston');
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 var ewinston = require('express-winston');
 var prjctdir = require('cwd')();
 var pkg = require(prjctdir + '/package.json');
@@ -7,7 +7,7 @@ var pkg = require(prjctdir + '/package.json');
 function XRequestId() {
     return function(req, res, next) {
         if (!req.headers['x-request-id']) {
-            req.headers['x-request-id'] = req.id = uuid.v4();
+            req.headers['x-request-id'] = req.id = uuid();
         } else {
             req.headers['x-request-id'] = req.id = req.headers['x-request-id'] + "-" + pkg.name.toLowerCase();
         }
