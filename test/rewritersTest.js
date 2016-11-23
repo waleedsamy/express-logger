@@ -84,5 +84,26 @@ describe('Rewriters', function() {
             redacted.CFG.should.be.eql('<REDACTED>');
             redacted.host.should.not.eql('<REDACTED>');
         });
+
+        it('meta object should not be overwritten', function() {
+            var msg = faker.random.words(),
+                meta = {
+                    qs: {
+                        passWord: faker.internet.password(),
+                        pwD: faker.internet.password()
+                    },
+                    CFG: faker.random.number(),
+                    host: faker.internet.ip()
+                };
+            var redacted = rewriters.redactCriticalData('info', msg, meta);
+            redacted.qs.passWord.should.be.eql('<REDACTED>');
+            meta.qs.passWord.should.not.eql('<REDACTED>');
+            redacted.qs.pwD.should.be.eql('<REDACTED>');
+            meta.qs.pwD.should.not.eql('<REDACTED>');
+            redacted.CFG.should.be.eql('<REDACTED>');
+            meta.CFG.should.not.eql('<REDACTED>');
+            redacted.host.should.not.eql('<REDACTED>');
+            meta.host.should.not.eql('<REDACTED>');
+        });
     });
 });

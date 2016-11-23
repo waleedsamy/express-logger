@@ -1,6 +1,6 @@
 {
   "name": "exwml",
-  "version": "1.4.1",
+  "version": "1.4.3",
   "description": "express winston!",
   "main": "index.js",
   "scripts": {
@@ -21,9 +21,13 @@
     "url": "https://github.com/waleedsamy/exwml/issues"
   },
   "homepage": "https://github.com/waleedsamy/exwml#readme",
+  "engines": {
+    "node": ">= 6.9.1"
+  },
   "dependencies": {
     "cwd": "^0.10.0",
     "express-winston": "^2.0.0",
+    "lodash": "^4.17.2",
     "uuid": "^3.0.0",
     "winston": "^2.2.0"
   },

@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var prjctdir = require('cwd')();
 var pkg = require(prjctdir + '/package.json').name.toLowerCase();
 
@@ -19,9 +20,10 @@ module.exports = {
     },
     /* change any value of meta[key] if this key is on of #SECRET keys */
     redactCriticalData: function(level, msg, meta) {
+        var tmeta = _.cloneDeep(meta);
         var _redact = function(obj) {
             Object.keys(obj).forEach(function(key) {
-                if (meta[key] !== null && typeof obj[key] === 'object') {
+                if (obj[key] !== null && typeof obj[key] === 'object') {
                     return _redact(obj[key]);
                 } else {
                     if (SECERTS.includes(key.toLowerCase())) {
@@ -30,7 +32,7 @@ module.exports = {
                 }
             });
         };
-        _redact(meta);
-        return meta;
+        _redact(tmeta);
+        return tmeta;
     }
 }

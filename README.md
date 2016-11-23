@@ -1,6 +1,8 @@
 # express-logger
 Logger utils and middleware build upon winstonjs
 
+[![Build Status](https://travis-ci.org/waleedsamy/exwml.svg?branch=master)](https://travis-ci.org/waleedsamy/exwml)
+
 #### Test
 ```bash
 $ npm test
