@@ -1,6 +1,6 @@
 {
   "name": "exwml",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "express winston!",
   "main": "index.js",
   "scripts": {
@@ -30,6 +30,8 @@
   "devDependencies": {
     "faker": "^3.1.0",
     "mocha": "^3.1.2",
-    "should": "^11.1.1"
+    "node-mocks-http": "^1.5.4",
+    "should": "^11.1.1",
+    "validator": "^6.1.0"
   }
 }
