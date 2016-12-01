@@ -7,6 +7,17 @@ if (!process.env.LOG_FORMAT || process.env.LOG_FORMAT !== 'pretty') {
     process.env.LOG_FORMAT = 'json';
 }
 
+var recommendLevel = function() {
+    if (process.env.LOG_LEVEL &&
+        Object.keys(winston.config.syslog.levels).includes(process.env.LOG_LEVEL)) {
+        return process.env.LOG_LEVEL;
+    } else if (process.env.NODE_ENV === 'development') {
+        return 'debug';
+    } else {
+        return 'info';
+    }
+}
+
 var CONSOLE_OPTIONS = {
     humanReadableUnhandledException: process.env.LOG_FORMAT === 'pretty',
     colorize: process.env.LOG_FORMAT === 'pretty',
@@ -17,14 +28,16 @@ var CONSOLE_OPTIONS = {
 };
 
 var options = {
+    level: recommendLevel(),
     transports: [new winston.transports.Console(CONSOLE_OPTIONS)],
     exceptionHandlers: [new winston.transports.Console(CONSOLE_OPTIONS)],
-    rewriters: process.env.NODE_ENV == "development" ? [rewriters.generalInfo, rewriters.xRequestId] : [rewriters.generalInfo, rewriters.xRequestId, rewriters.redactCriticalData]
+    levels: winston.config.syslog.levels,
+    rewriters: process.env.NODE_ENV === 'development' ? [rewriters.generalInfo, rewriters.xRequestId] : [rewriters.generalInfo, rewriters.xRequestId, rewriters.redactCriticalData]
 };
 
 global.logger = new winston.Logger(options);
 
-logger.info("Logger is configured with LOG_FORMAT=%s", process.env.LOG_FORMAT, CONSOLE_OPTIONS);
+logger.info("Logger is configured with LOG_FORMAT=%s and threshold=%s", process.env.LOG_FORMAT, recommendLevel(), CONSOLE_OPTIONS);
 
 module.exports = {
     XRequestId: middleware.XRequestId,

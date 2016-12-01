@@ -21,7 +21,9 @@ function expressWinston() {
         winstonInstance: global.logger,
         meta: true,
         msg: "HTTP {{req.method}} {{req.baseUrl}}{{req.path}} {{res.statusCode}} {{res.responseTime}}ms",
-        statusLevels: true,
+        statusLevels: {
+            warn: 'warning'
+        },
         requestWhitelist: ['baseUrl', 'headers', 'method', 'httpVersion', 'query'],
         responseWhitelist: ['statusCode']
     });
