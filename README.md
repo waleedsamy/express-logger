@@ -1,39 +1,45 @@
 # express-logger
-Logger utils and middleware build upon winstonjs
+
+Logger utils and middleware build upon winstonjs, severity levels is syslog based.
 
 [![Build Status](https://travis-ci.org/waleedsamy/exwml.svg?branch=master)](https://travis-ci.org/waleedsamy/exwml)
 
-#### Test
+## Test
+
 ```bash
 $ npm test
 ```
 
-#### configuration
-Logger generate human readable logs if configured with `process.env.LOG_FORMAT=pretty`, otherwise it will generate json.
+### configuration
 
-Winston rewriters will mask any critical information based in log `meta` key name, if key name (_case insensitive_) is one of `['password', 'pwd', 'auth', 'authorization', 'cfg']`, it's value will be replaced by `<REDACTED>`, No masking/redacting to any information if you have `NODE_ENV` set to `development`.
+- `process.env.LOG_FORMAT` e.g pretty to generate human readable logs
+- `process.env.LOG_LEVEL` e.g debug, default is `info` or `debug` based on your `NODE_ENV`
 
+### Usage
 
-#### middleware
- Logger provide two middleware `XRequestId` and `expressWinston` to generate `x-request-id` to distinguish every request and to log every HTTP request details respectively.
+- logger object is available globally, and it provide syslog levels `{ emerg: 0, alert: 1, crit: 2, error: 3, warning: 4, notice: 5, info: 6, debug: 7 }`.
 
- * `XRequestId()`
+- middleware
 
-  express `req.id` will contain a uuid for this request, and it will be available in request response headers as `x-request-id`, putting this id in log message allow you to search inside it with this id, and in return you will get all the logs which generated only while serving this request.
+  - `XRequestId()`
 
-  `x-request-id` will created if no one already existed in `req.headers['x-request-id']`. if one existed (this mean, current micro-service is not the starting point for serving this request), it will be append with the lowercase of service name in `package.json` e.g. `26b3a9be-820c-42b9-965f-323594b1bda3-connectorservice`
+    express `req.id` will be read from `req.headers['x-request-id']` and concatenated with the **package name** or new one is created for this request, and it will be available in request response headers as `x-request-id`.
 
-  ```javascript
-  var XRequestId      = require('./index.js').XRequestId;
-  var app = express();
-  app.use(XRequestId());
-  ```
- * `expressWinston()`
+    ```javascript
+    var XRequestId      = require('exwml').XRequestId;
+    var app = express();
+    app.use(XRequestId());
+    ```
 
-  log all details about any incoming request such as headers, params, responseTime ...
+  - `expressWinston()`
 
-  ```javascript
-  var expressWinston      = require('./index.js').expressWinston;
-  var app = express();
-  app.use(expressWinston());
-  ```
+    log all details about any incoming request such as headers, params, responseTime ...
+
+    ```javascript
+    var expressWinston      = require('exwml').expressWinston;
+    var app = express();
+    app.use(expressWinston());
+    ```
+
+### security
+ * meta object keys (_case insensitive_) `['password', 'pwd', 'auth', 'authorization', 'cfg']` will be *REDACTED*
