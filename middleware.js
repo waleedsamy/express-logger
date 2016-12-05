@@ -24,7 +24,7 @@ function expressWinston() {
         statusLevels: {
             warn: 'warning'
         },
-        requestWhitelist: ['baseUrl', 'headers', 'method', 'httpVersion', 'query'],
+        requestWhitelist: ['baseUrl', 'originalUrl', 'headers', 'method', 'httpVersion', 'query'],
         responseWhitelist: ['statusCode']
     });
 }
