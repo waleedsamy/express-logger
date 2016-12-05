@@ -20,9 +20,9 @@ function expressWinston() {
     return ewinston.logger({
         winstonInstance: global.logger,
         meta: true,
-        msg: "HTTP {{req.method}} {{req.baseUrl}}{{req.path}} {{res.statusCode}} {{res.responseTime}}ms",
+        msg: "HTTP {{req.method}} {{req.originalUrl}} {{res.statusCode}} {{res.responseTime}}ms",
         statusLevels: true,
-        requestWhitelist: ['baseUrl', 'headers', 'method', 'httpVersion', 'query'],
+        requestWhitelist: ['baseUrl', 'originalUrl', 'headers', 'method', 'httpVersion', 'query'],
         responseWhitelist: ['statusCode']
     });
 }

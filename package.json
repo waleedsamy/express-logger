@@ -1,6 +1,6 @@
 {
   "name": "exwml",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "express winston!",
   "main": "index.js",
   "scripts": {
