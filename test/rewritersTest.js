@@ -3,7 +3,30 @@ var should = require('should'),
     rewriters = require('../rewriters');
 
 describe('Rewriters', function() {
-    describe('#redactCriticalData(msg, meta, level)', function() {
+    describe('#generalInfo(level, msg, meta)', function() {
+        it('add generalInfo', function() {
+            var msg = faker.random.words(),
+                meta = {
+                    m1: faker.internet.userName(),
+                    m2: faker.internet.ip(),
+                    m3: faker.random.number()
+                };
+            var generalInfo = rewriters.generalInfo('info', msg, meta);
+            should.exist(generalInfo);
+            generalInfo.GENERATED_BY.should.exist;
+            generalInfo.m1.should.be.eql(meta.m1);
+            generalInfo.m2.should.be.eql(meta.m2);
+            generalInfo.m3.should.be.eql(meta.m3);
+        });
+
+        it('add generalInfo even if meta object is undefined', function() {
+            var msg = faker.random.words();
+            var generalInfo = rewriters.generalInfo('info', msg, undefined);
+            should.exist(generalInfo);
+            generalInfo.GENERATED_BY.should.exist;
+        });
+    });
+    describe('#redactCriticalData(level, msg, meta)', function() {
         it('simple redact of top level secret information', function() {
             var msg = faker.random.words(),
                 meta = {
