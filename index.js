@@ -20,6 +20,7 @@ var recommendLevel = function() {
 
 var CONSOLE_OPTIONS = {
     humanReadableUnhandledException: process.env.LOG_FORMAT === 'pretty',
+    silent: process.env.LOG_SUPPRESS === 'true',
     colorize: process.env.LOG_FORMAT === 'pretty',
     timestamp: !(process.env.LOG_FORMAT === 'pretty'),
     json: !(process.env.LOG_FORMAT === 'pretty'),

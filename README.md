@@ -14,6 +14,7 @@ $ npm test
 
 - `process.env.LOG_FORMAT` e.g pretty to generate human readable logs
 - `process.env.LOG_LEVEL` e.g debug, default is `info` or `debug` based on your `NODE_ENV`
+- `process.env.LOG_SUPPRESS` with value `true` to suppress all logs (when you run some test, maybe)
 
 ### Usage
 

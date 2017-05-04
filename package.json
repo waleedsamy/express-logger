@@ -1,10 +1,10 @@
 {
   "name": "exwml",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "express winston!",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "LOG_SUPPRESS=true mocha"
   },
   "repository": {
     "type": "git",
