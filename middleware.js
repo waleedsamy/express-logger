@@ -25,7 +25,14 @@ function expressWinston() {
             warn: 'warning'
         },
         requestWhitelist: ['baseUrl', 'originalUrl', 'headers', 'method', 'httpVersion', 'query'],
-        responseWhitelist: ['statusCode']
+        responseWhitelist: ['statusCode'],
+        dynamicMeta: function(req, res, err) {
+          let dmeta = {};
+          if(req.user && (req.user.name || req.user.username)){
+            dmeta.user = req.user.name || req.user.username;
+          }
+          return dmeta;
+        }
     });
 }
 
